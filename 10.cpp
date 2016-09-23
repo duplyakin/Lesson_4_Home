@@ -2,14 +2,15 @@
 #include <cstring>
 #include "logger.h"
 
-#define SIZE 5
+#define SIZE 10
+#define LEAST '*'
 
 /* Stack */
 // ----------------------------------------------------------------------------
 int head = 0;
-int stack[SIZE];
+char stack[SIZE];
 
-void push(int i) {
+void push(char i) {
   if (head == SIZE) {
     ERR("Stack overflow!");
     return;
@@ -18,18 +19,18 @@ void push(int i) {
   stack[head++] = i;
 }
 
-void pop() {
+char pop() {
   if (head == 0) {
     ERR("Stack underflow!");
-    return;
+    return LEAST;
   }
 
-  --head;
+  return stack[--head];
 }
 
 void printStack() {
   for (int i = 0; i < head; ++i) {
-    printf("%i ", stack[i]);
+    printf("%c ", stack[i]);
   }
   printf("\n");
 }
@@ -38,15 +39,19 @@ void printStack() {
 /* Main */
 // ----------------------------------------------------------------------------
 int main(int argc, char** argv) {
-  DBG("[Lesson 4]: Home 08");
+  DBG("[Lesson 4]: Home 10");
   
-  for(int i = 0; i < SIZE; ++i) {
-    push(getchar());
+  char c;
+  while((c = getchar()) != '\n') {
+    push(c);
+  }
+  int length = head;
+  for(int i = 0; i < length; ++i) {
+    std::cout  << pop();
   }
 
-  printStack();
 
-  DBG("[Lesson 4]: Home 08 [END]");
+  DBG("[Lesson 4]: Home 10 [END]");
   return 0;
 }
 
